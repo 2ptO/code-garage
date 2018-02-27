@@ -7,6 +7,11 @@ class TestBinarySearchTree(unittest.TestCase):
         emptyTree = bst.BinarySearchTree()
         self.assertEqual(emptyTree.getHeight(), 0)
         self.assertEqual(emptyTree.getValuesInOrder(), [])
+    
+    def test_singleNodeTree(self):
+        test_tree = bst.BinarySearchTree()
+        test_tree.insert(45)
+        self.assertEqual([45], test_tree.getValuesInOrder())
 
     def test_insert(self):
         testTree = [15, 8, 20, 5, 10, 18, 25, 16]
