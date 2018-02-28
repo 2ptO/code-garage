@@ -5,62 +5,68 @@ class Node(object): # Is object really needed? What is the significance?
         self.right = rightChild
         self.parent = parent
     
-    def hasLeftChild(self):
+    def has_left_child(self):
         return self.left != None
     
-    def hasRightChild(self):
+    def has_right_child(self):
         return self.right != None
     
-    def hasNoChildren(self):
-        return (not self.hasLeftChild()) and (not self.hasRightChild())
+    def has_no_children(self):
+        return (not self.has_left_child()) and (not self.has_right_child())
     
-    def hasBothChildren(self):
-        return (self.hasLeftChild() and self.hasRightChild())
+    def has_both_children(self):
+        return (self.has_left_child() and self.has_right_child())
     
-    def getHeight(self):
-        if self.hasNoChildren():
+    def get_height(self):
+        if self.has_no_children():
             return 1
-        leftHeight = self.left.getHeight() if self.hasLeftChild() else 0
-        rightHeight = self.right.getHeight() if self.hasRightChild() else 0
-        return max(leftHeight, rightHeight) + 1
+        left_height = self.left.get_height() if self.has_left_child() else 0
+        right_height = self.right.get_height() if self.has_right_child() else 0
+        return max(left_height, right_height) + 1
 
 class BinarySearchTree(object):
     def __init__(self):
         self.root = None
-        self.nodeCount = 0
+        self.node_count = 0
+    
+    def __len__(self):
+        return self.node_count
     
     def insert(self, value):
         if self.root == None:
             self.root = Node(value)
+            self.node_count += 1
         else:
             self._insert(self.root, value)
     
     def _insert(self, node, value):
         if value < node.value:
-            if node.hasLeftChild():
+            if node.has_left_child():
                 self._insert(node.left, value)
             else:
-                node.left = Node(value, node)                
+                node.left = Node(value, node)
+                self.node_count += 1                
         elif value > node.value:
-            if node.hasRightChild():
+            if node.has_right_child():
                 self._insert(node.right, value)
             else:
                 node.right = Node(value, node)
+                self.node_count += 1
         else:
             pass # Value exists already
     
-    def getValuesInOrder(self):
-        valuesInOrder = []
-        self._inOrder(self.root, valuesInOrder)
-        return valuesInOrder
+    def get_values_in_order(self):
+        values_in_order = []
+        self._iterate_in_order(self.root, values_in_order)
+        return values_in_order
     
-    def _inOrder(self, node, valuesInOrder):
+    def _iterate_in_order(self, node, valuesInOrder):
         if node != None:
-            self._inOrder(node.left, valuesInOrder)
+            self._iterate_in_order(node.left, valuesInOrder)
             valuesInOrder.append(node.value)
-            self._inOrder(node.right, valuesInOrder)
+            self._iterate_in_order(node.right, valuesInOrder)
     
-    def getHeight(self):
-        return self.root.getHeight() if self.root != None else 0
+    def get_height(self):
+        return self.root.get_height() if self.root != None else 0
     
 
