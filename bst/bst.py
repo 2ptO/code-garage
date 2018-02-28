@@ -23,7 +23,24 @@ class Node(object): # Is object really needed? What is the significance?
         left_height = self.left.get_height() if self.has_left_child() else 0
         right_height = self.right.get_height() if self.has_right_child() else 0
         return max(left_height, right_height) + 1
+    
+    def find_min(self):
+        while (self.has_left_child()):
+            return self.left.find_min()
+        return self
+        # Iterative solution:
+        # if not self.has_left_child():
+        #     return self
+        
+        # left = self.left
+        # while (left is not None):
+        #     left = self.left
+        # return left
 
+    def find_max(self):
+        while (self.has_right_child()):
+            return self.right.find_max()
+        return self
 class BinarySearchTree(object):
     def __init__(self):
         self.root = None
@@ -60,13 +77,23 @@ class BinarySearchTree(object):
         self._iterate_in_order(self.root, values_in_order)
         return values_in_order
     
-    def _iterate_in_order(self, node, valuesInOrder):
+    def _iterate_in_order(self, node, values_in_order):
         if node != None:
-            self._iterate_in_order(node.left, valuesInOrder)
-            valuesInOrder.append(node.value)
-            self._iterate_in_order(node.right, valuesInOrder)
+            self._iterate_in_order(node.left, values_in_order)
+            values_in_order.append(node.value)
+            self._iterate_in_order(node.right, values_in_order)
     
     def get_height(self):
         return self.root.get_height() if self.root != None else 0
     
-
+    def get_min(self):
+        if self.root is not None:
+            return self.root.find_min().value
+        raise IndexError
+    
+    def get_max(self):
+        if self.root is not None:
+            return self.root.find_max().value
+        raise IndexError
+    
+    
