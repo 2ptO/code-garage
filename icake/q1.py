@@ -11,6 +11,14 @@
 # With that approach, this problem can be solved in O(n) time
 # and O(n) space. 
 
+# My take
+# Break into subproblems
+# Identify if any pattern
+# Go greedy in saving the results of the subproblems
+# If stuck, work out with a different example
+# Test boundary conditions
+# Optimize for time and space
+
 def get_products_of_all_ints_except_at_index(input_nums):
     if len(input_nums) <= 1:
         # Can be considered as error condition too.
