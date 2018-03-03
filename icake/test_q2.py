@@ -21,5 +21,5 @@ class TestQ2(unittest.TestCase):
             q2.get_highest_product_of_three(inputs)
         
 
-if __name__ == "main":
+if __name__ == "__main__":
     unittest.main()
