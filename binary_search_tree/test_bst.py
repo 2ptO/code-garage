@@ -8,7 +8,7 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(emptyTree.get_values_in_order(), [])
         with self.assertRaises(IndexError):
             emptyTree.get_min()
-    
+
     def test_singleNodeTree(self):
         test_tree = bst.BinarySearchTree()
         test_tree.insert(45)
