@@ -4,7 +4,7 @@ import bst
 class TestBinarySearchTree(unittest.TestCase):
     def setUp(self):
         self.test_tree = bst.BinarySearchTree()
-    
+       
     def tearDown(self):
         del self.test_tree
     def test_emptyTree(self):
@@ -22,17 +22,15 @@ class TestBinarySearchTree(unittest.TestCase):
     
     def test_min_max_values(self):
         test_inputs = [34, 56, 5, 24, 10, -1]
-        for i in test_inputs:
-            self.test_tree.insert(i)
+        self.test_tree.insert_multiple(test_inputs)
         self.assertEqual(self.test_tree.get_min(), min(test_inputs), "Invalid minimum value")
         self.assertEqual(self.test_tree.get_max(), max(test_inputs), "Invalid max value")
 
     def test_insert(self):
         test_inputs = [15, 8, 20, 5, 10, 18, 25, 16]
-        for value in test_inputs:
-            self.test_tree.insert(value)
-        expectedResult = self.test_tree.get_values_in_order()
-        self.assertEqual(sorted(test_inputs), expectedResult, "Returned values not inorder")
+        self.test_tree.insert_multiple(test_inputs)
+        expected_result = self.test_tree.get_values_in_order()
+        self.assertEqual(sorted(test_inputs), expected_result, "Returned values not inorder")
         self.assertEqual(self.test_tree.get_height(), 4, "Height didn't match with the test tree")
         self.assertEqual(len(test_inputs), len(self.test_tree), "Invalid node count")
     
@@ -52,23 +50,20 @@ class TestBinarySearchTree(unittest.TestCase):
     
     def test_delete_leaf_node(self):
         input_values = [15, 10, 25]
-        for i in input_values:
-            self.test_tree.insert(i)
+        self.test_tree.insert_multiple(input_values)
         self.test_tree.delete(10)
         self.assertEqual(self.test_tree.find(10), None, "Deleted node found after deletion")
     
     def test_delete_single_child_node(self):
         input_values = [5, 10, 25]
-        for i in input_values:
-            self.test_tree.insert(i)
+        self.test_tree.insert_multiple(input_values)
         self.test_tree.delete(10)
         self.assertEqual(self.test_tree.find(10), None, "Deleted node found after deletion")
     
     def test_delete_two_child_node(self):
         input_values = [15, 10, 25, 20, 30]
         value_to_delete = 25
-        for i in input_values:
-            self.test_tree.insert(i)
+        self.test_tree.insert_multiple(input_values)
         self.test_tree.delete(value_to_delete)
         self.assertEqual(self.test_tree.find(value_to_delete),
                          None,
@@ -81,8 +76,7 @@ class TestBinarySearchTree(unittest.TestCase):
     def test_delete_root_node(self):
         input_values = [15, 10, 25, 20, 30]
         value_to_delete = 15
-        for i in input_values:
-            self.test_tree.insert(i)
+        self.test_tree.insert_multiple(input_values)
         self.test_tree.delete(value_to_delete)
         self.assertEqual(self.test_tree.find(value_to_delete),
                          None,
@@ -91,6 +85,19 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(sorted(input_values),
                          self.test_tree.get_values_in_order(), 
                          "Deleted node found after deletion")
+    
+    def test_inorder_generator(self):
+        input_values = []
+        
+        self.test_tree.insert_multiple(input_values)
+        actual_result = [node.value for node in self.test_tree.generate_values_in_order()]
+        self.assertListEqual(sorted(set(input_values)), actual_result, "Values not generated in order")
+
+        input_values = [11, 15, 45, 10, 1,2,4,2,3,1]
+        self.test_tree.insert_multiple(input_values)
+        actual_result = [node.value for node in self.test_tree.generate_values_in_order()]
+        # Converting input_values into set to get rid of duplicates
+        self.assertListEqual(sorted(set(input_values)), actual_result, "Values not generated in order")
 
 
 if __name__ == '__main__':

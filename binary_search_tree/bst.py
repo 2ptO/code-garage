@@ -113,6 +113,10 @@ class BinarySearchTree:
     def __len__(self):
         return self.node_count
     
+    def insert_multiple(self, values):
+        for value in values:
+            self.insert(value)
+    
     def insert(self, value):
         if self.root == None:
             self.root = Node(value)
@@ -207,6 +211,19 @@ class BinarySearchTree:
             values_in_order.append(node.value)
             self._iterate_in_order(node.right, values_in_order)
     
+    # In-order iteration of tree, but using python generators
+    # instead of recursion.
+    def generate_values_in_order(self):
+        return self._generate_values_in_order(self.root)
+    
+    def _generate_values_in_order(self, node):
+        if node != None:
+            for left_child in self._generate_values_in_order(node.left):
+                yield left_child
+            yield node
+            for right_child in self._generate_values_in_order(node.right):
+                yield right_child
+            
     def get_height(self):
         return self.root.get_height() if self.root != None else 0
     
