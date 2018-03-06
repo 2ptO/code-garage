@@ -29,7 +29,7 @@ def merge_ranges(meeting_times):
     return merged_times
 
 def merge_ranges_optimized(meeting_times):
-    """ The functionality is same as merge_ranges but runs in O(nlog(n)) time """
+    """ The function is same as merge_ranges but runs in O(nlog(n)) time """
     if len(meeting_times) < 1:
         return meeting_times
 
@@ -37,12 +37,15 @@ def merge_ranges_optimized(meeting_times):
     merged_times = [sorted_times[0]]
     for current_start, current_end in sorted_times[1:]:
         previous_start, previous_end = merged_times[-1]
-        if previous_end >= current_start:
+        if previous_end >= current_start: # we have a overlap
             merged_times[-1] = (previous_start, max(previous_end, current_end))
         else:
             merged_times.append((current_start, current_end))
 
-
     return merged_times
 
-print(merge_ranges_optimized([(0, 1), (3, 5), (4, 8), (9, 12), (2, 4)]))
+# My takeaway:
+# I took some time initially, and then worked out few examples
+# and solved it in O(n2) time. I tried to optimize for O(n) for
+# a while. I realized that O(n) is not possible when I looked
+# for a hint. Then used sorting to solve this in O(nlog(n))

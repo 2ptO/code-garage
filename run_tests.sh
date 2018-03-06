@@ -1,5 +1,5 @@
 #!/bin/bash
 
-python -m unittest discover -s binary_search_tree -p "*test*.py"
-python -m unittest discover -s icake -p "*test*.py"
+python -m unittest discover -v -s binary_search_tree -p "test_*.py"
+python -m unittest discover -v -s icake -p "test_*.py"
 
