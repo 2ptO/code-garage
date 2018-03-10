@@ -16,7 +16,7 @@
 
 # }
 
-def find_line_overlap(x1, x2, y1, y2):
+def _find_line_overlap(x1, x2, y1, y2):
     # find overlapping points in lines defined by endpoints (x1,x2) and (y1,y2)
     # if end points just meet, then it is not considered as overlapping.
     start_point = max(x1, y1)
@@ -28,11 +28,17 @@ def find_line_overlap(x1, x2, y1, y2):
 
 def find_overlapping_rectangle(rect1, rect2):
     # find overlap on x-axis
-    is_x_overlapping, overlapping_x = find_line_overlap(rect1["x"], rect1["x"]+rect1["width"],
-                rect2["x"], rect2["x"]+rect2["width"])
+    is_x_overlapping, overlapping_x = _find_line_overlap(
+                                        rect1["x"],
+                                        rect1["x"]+rect1["width"],
+                                        rect2["x"],
+                                        rect2["x"]+rect2["width"])
     if is_x_overlapping:
-        is_y_overlapping, overlapping_y = find_line_overlap(rect1["y"], rect1["y"]+rect1["height"],
-                rect2["y"], rect2["y"]+rect2["height"])
+        is_y_overlapping, overlapping_y = _find_line_overlap(
+                                            rect1["y"],
+                                            rect1["y"]+rect1["height"],
+                                            rect2["y"],
+                                            rect2["y"]+rect2["height"])
     if is_x_overlapping and is_y_overlapping:
         return {
             "x" : overlapping_x[0],
@@ -43,20 +49,9 @@ def find_overlapping_rectangle(rect1, rect2):
     else:
         return {}
 
-r1 = {
-    "x" : 2,
-    "y" : 5,
-    "width": 4,
-    "height": 4
-}
-
-r2 = {
-    "x" : 4,
-    "y" : 8,
-    "width": 4,
-    "height": 4
-}
-
-overlapping_rectangle = find_overlapping_rectangle(r1, r2)
-if len(overlapping_rectangle) > 0:
-    print(overlapping_rectangle)
+# How did I do?
+# I found the solution on my own this time. I initially started with 
+# few sample graphs to find a pattern in the solution and to consider
+# edge cases. I formulated the conditions for overlapping first and
+# then transformed into the algorithm. I double checked my approach
+# with the hints while working on the solution.
