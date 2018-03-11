@@ -1,11 +1,9 @@
 import unittest
-import sys
 from random import randint
 from statistics import mean, mode, StatisticsError
 import q7
 
 class TestQ7(unittest.TestCase):
-    @unittest.skipIf(sys.version_info < (3, 4), "statistics module supported from 3.4 onwards")
     def test_random_temps(self):
         num_temps = 50
         test_temps = [randint(q7.TempTracker.MIN_TEMP, q7.TempTracker.MAX_TEMP) \
