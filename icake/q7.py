@@ -14,8 +14,6 @@
 
 # If there is more than one mode, return any of the modes.
 
-import random
-
 class TempTracker:
     MIN_TEMP = 0
     MAX_TEMP = 110
@@ -69,3 +67,10 @@ class TempTracker:
         for temp, frequency in enumerate(self.temps):
             temps_in_string += "Temp: {} Freq: {}\n".format(temp, frequency)
         return temps_in_string
+
+# Takeway
+# Just in time versus ahead-of-time compute to trade-off between space and time
+# Optimizing setter vs getters based on the use cases
+# In this solution, insert() did few extra calculations for the get_ functions
+# to run in O(1) time. For write intensive applications, insert() may
+# have to optimized more than the read functions (i.e. getters). 
