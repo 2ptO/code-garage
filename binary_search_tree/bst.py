@@ -218,11 +218,13 @@ class BinarySearchTree:
     
     def _generate_values_in_order(self, node):
         if node != None:
-            for left_child in self._generate_values_in_order(node.left):
-                yield left_child
+            # for left_child in self._generate_values_in_order(node.left):
+            #     yield left_child
+            yield from self._generate_values_in_order(node.left)
             yield node
-            for right_child in self._generate_values_in_order(node.right):
-                yield right_child
+            yield from self._generate_values_in_order(node.right)
+            # for right_child in self._generate_values_in_order(node.right):
+            #     yield right_child
             
     def get_height(self):
         return self.root.get_height() if self.root != None else 0
