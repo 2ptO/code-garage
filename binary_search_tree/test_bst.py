@@ -1,4 +1,5 @@
 import unittest
+from sys import version_info as py_version
 import bst
 
 class TestBinarySearchTree(unittest.TestCase):
@@ -86,6 +87,7 @@ class TestBinarySearchTree(unittest.TestCase):
                          self.test_tree.get_values_in_order(), 
                          "Deleted node found after deletion")
     
+    @unittest.skipIf(py_version < (3, 3), "yield from supported only from 3.3")
     def test_inorder_generator(self):
         input_values = []
         
