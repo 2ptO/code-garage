@@ -1,5 +1,5 @@
 import unittest
-from .q9 import BTNode, is_binary_search_tree
+from icake.q9 import BTNode, is_binary_search_tree
 
 class TestQ9(unittest.TestCase):
     def test_bs_tree_valid(self):
