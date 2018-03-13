@@ -218,13 +218,9 @@ class BinarySearchTree:
     
     def _generate_values_in_order(self, node):
         if node != None:
-            # for left_child in self._generate_values_in_order(node.left):
-            #     yield left_child
             yield from self._generate_values_in_order(node.left)
             yield node
             yield from self._generate_values_in_order(node.right)
-            # for right_child in self._generate_values_in_order(node.right):
-            #     yield right_child
             
     def get_height(self):
         return self.root.get_height() if self.root != None else 0
@@ -237,6 +233,19 @@ class BinarySearchTree:
     def get_max(self):
         if self.root is not None:
             return self.root.find_max().value
-        raise IndexError
+        raise IndexError("Tree not created yet")
+    
+    def is_balanced(self):
+        if self.root is None:
+            return False
+        left_height = 0
+        right_height = 0
+        if self.root.has_left_child():
+            left_height = self.root.left.get_height()
+        if self.root.has_right_child():
+            right_height = self.root.right.get_height()
+        return (abs(left_height - right_height) <= 1)
+    
+
     
     

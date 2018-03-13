@@ -27,13 +27,19 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(self.test_tree.get_max(), max(test_inputs), "Invalid max value")
 
     def test_insert(self):
-        test_inputs = [15, 8, 20, 5, 10, 18, 25, 16]
+        test_inputs = [15, 8, 20, 5, 10, 18, 25, 17]
         self.test_tree.insert_multiple(test_inputs)
         expected_result = self.test_tree.get_values_in_order()
         self.assertEqual(sorted(test_inputs), expected_result, "Returned values not inorder")
         self.assertEqual(self.test_tree.get_height(), 4, "Height didn't match with the test tree")
         self.assertEqual(len(test_inputs), len(self.test_tree), "Invalid node count")
-    
+        self.assertTrue(self.test_tree.is_balanced())
+        self.test_tree.insert(16)
+        self.assertFalse(self.test_tree.is_balanced())
+        another_tree = bst.BinarySearchTree()
+        another_tree.insert_multiple([1, 2])
+        print(another_tree.is_balanced())
+            
     def test_delete_empty_tree(self):
         with self.assertRaises(KeyError):
             self.test_tree.delete(10)
