@@ -57,4 +57,5 @@ def find_rotation_point(words):
 # the constraints and used the iterative method.
 # Tip: With binary search, usually we have some value to find. If the
 # value to be find is not given, guess it (for e.g. middle index)
+# O(log(n)) time and O(1) space
             
