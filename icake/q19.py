@@ -1,5 +1,6 @@
-# Implement a queue ↴ with 2 stacks. Your queue should have an enqueue and a 
+# Implement a queue with 2 stacks. Your queue should have an enqueue and a 
 # dequeue method and it should be "first in first out" (FIFO).
+# Q17, Q18 were javascript questions. 
 
 DEFAULT_STACK_SIZE = 16
 
