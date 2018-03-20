@@ -22,10 +22,16 @@ class Stack:
             return None
     
     def peek(self):
+        """
+        Returns the top of the stack, without removing the element
+        """
         if self.elements:
             return self.elements[-1]
         else:
             return None
+    
+    def is_empty(self):
+        return (len(self.elements) == 0)
 
 class MaxStack:
     def __init__(self):
@@ -57,11 +63,14 @@ class MaxStack:
     
     def push(self, new_element):
         current_max = self.max_stack.peek()
-        if current_max is None or new_element > current_max:
+        if current_max is None or new_element >= current_max:
                 self.max_stack.push(new_element)
         self.stack.push(new_element)
 
     def pop(self):
+        if self.stack.is_empty():
+            return None
+
         popped_element = self.stack.pop()
         # If popped_element is the current max, pop it from
         # the max_stack as well
@@ -72,3 +81,44 @@ class MaxStack:
     def get_max(self):
         return self.max_stack.peek()
 
+# The optimized version was not asked in the actual problem though.
+# It needed a mathematical hint to think for a solution in O(1) space.
+# Really needed to think out of the box here.
+# This solution can be applied to min_stack as well. 
+class MaxStackOptimized:
+    """
+    Optimized version of MaxStack that uses O(1) space
+    """
+    def __init__(self):
+        self.stack = Stack()
+        self.max_elem = None
+    
+    def push(self, new_element):
+        if self.stack.is_empty():
+            self.max_elem = new_element
+        elif new_element > self.max_elem:
+            # Keep track of the second max by keeping it as a function
+            # of the current_max and new_element
+            second_max = 2*new_element - self.max_elem
+            self.max_elem = new_element
+            new_element = second_max
+
+        self.stack.push(new_element)
+        
+
+    def pop(self):
+        if self.stack.is_empty():
+            return None
+
+        popped_element = self.stack.pop()
+        if self.max_elem is not None and popped_element > self.max_elem:
+            # we are actually popping the true current maximum
+            # Find the second max, and set it as new max
+            current_max = self.max_elem
+            self.max_elem = 2*self.max_elem - popped_element
+            popped_element = current_max
+        
+        return popped_element
+    
+    def get_max(self):
+        return self.max_elem
