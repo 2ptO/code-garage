@@ -36,7 +36,6 @@ def find_rotation_point(words):
     # But having this check as a precaution against accessing out of range
     while (floor < ceiling):
         guess = int(floor + (ceiling - floor)/2)
-        print(guess)
         if words[guess] >= first_word:
             floor = guess
         else:
