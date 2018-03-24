@@ -4,6 +4,9 @@
 # reversing.
 
 def reverse_text(text):
+    """
+    Reverse a string in place
+    """
     if not text:
         raise ValueError("Text is empty or None") 
     
