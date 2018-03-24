@@ -12,30 +12,40 @@
 # "{ [ }" should return False
 
 def is_nested(text):
-    openers = ['(', '{', '[']
-    closers = [')', '}', ']']
+    """
+    Returns True if the given text has proper nested blocks
+    """
+    opener_to_closer = {
+        '{' : '}',
+        '(' : ')',
+        '[' : ']'
+    }
 
-    # corner cases
-    # text with odd length 
-    # empty text
+     # Initially used a list here, and compared the indexes
+     # to map openers to closers. Then came to know about
+     # set/frozenset classes. Addl tip: dict.keys() and
+     # dict.values() returns a dictview objects that are
+     # view to the actual keys and values. Change in dict
+     # keys/values will impact the objects points to 
+     # dict.keys() and dict.values() as well.
+    openers = frozenset(opener_to_closer.keys())
+    closers = frozenset(opener_to_closer.values())
 
-    stack = []
+    openers_stack = []
     for char in text:
         if char in openers:
-            stack.append(char)
+            openers_stack.append(char)
         elif char in closers:
-            if stack: # if stack is not empty
-                last_opener = stack.pop()
-                if closers.index(char) != openers.index(last_opener):
-                    return False
-            else:
-                break
+            if not openers_stack:
+                # Found a closer without a opener
+                return False
 
-    return len(stack) == 0
+            last_opener = openers_stack.pop()
+            if char != opener_to_closer[last_opener]:
+                # current closer and last opener didn't match.
+                # So, text is not properly nested
+                return False
 
-    # TODO
-    # find complexity of len() function
-    # find complexity of comparing a  list to [] versus calling length
-    # look into set and frozenset
-
-    
+    # If the text is properly nested, openers stack must be empty
+    # after completing the walk.
+    return len(openers_stack) == 0
