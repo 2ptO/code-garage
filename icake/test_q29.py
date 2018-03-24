@@ -12,3 +12,5 @@ class TestQ29(unittest.TestCase):
         self.assertFalse(q29.is_nested(text1))
         self.assertFalse(q29.is_nested(text2))
 
+if __name__ == "__main__":
+    unittest.main()
